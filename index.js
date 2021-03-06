@@ -1,9 +1,11 @@
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var myObj = JSON.parse(this.responseText);
-    document.getElementById("demo").innerHTML = myObj.name;
-  }
-};
-xmlhttp.open("GET", "data_melp.json", true);
-xmlhttp.send();
+$.getJSON( "data_melp.json", function( data ) {
+  var items = [];
+  $.each( data, function( key, val ) {
+    items.push( "<li id='" + key + "'>" + val + "</li>" );
+  });
+ 
+  $( "<ul/>", {
+    "class": "my-new-list",
+    html: items.join( "" )
+  }).appendTo( "body" );
+});
